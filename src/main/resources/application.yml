@@ -1,0 +1,44 @@
+server:
+  port: 8083
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: "jdbc:h2:~/localtest;MODE=MYSQL" # user 예약어 제외 시키기
+    username: "sa"
+    password: 1234
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: "jdbc:mysql://localhost/library"
+    username: "root"
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
